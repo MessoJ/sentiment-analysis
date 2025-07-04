@@ -90,7 +90,7 @@ utils.plot_tune_results('Pegasos', 'T', Ts, *peg_tune_results_T)
 utils.plot_tune_results('Pegasos', 'L', Ls, *peg_tune_results_L)
 
 #-------------------------------------------------------------------------------
-# UseD the best method ( Pegasos) along with
+# Used the best method ( Pegasos) along with
 # the optimal hyperparameters according to validation accuracies to test
 # against the test dataset. The test data has is as
 # test_bow_features and test_labels.
@@ -105,7 +105,7 @@ test_accuracy = p1.classifier_accuracy(p1.pegasos, train_bow_features, test_bow_
 print(f"Test accuracy for Pegasos (T={T_best}, L={L_best}): {test_accuracy:.4f}")
 
 #-------------------------------------------------------------------------------
-# Assign to best_theta, the weights (and not the bias!) learned by my most
+# Assigned to best_theta, the weights (and not the bias!) learned by my most
 # accurate algorithm with the optimal choice of hyperparameters.
 #-------------------------------------------------------------------------------
 
