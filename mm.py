@@ -2,9 +2,6 @@ import project1 as p1
 import utils
 import numpy as np
 
-#-------------------------------------------------------------------------------
-# Problem 5
-#-------------------------------------------------------------------------------
 
 toy_features, toy_labels = toy_data = utils.load_toy_data('toy_data.tsv')
 
