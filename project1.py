@@ -4,12 +4,6 @@ import random
 
 
 
-#==============================================================================
-#===  PART I  =================================================================
-#==============================================================================
-
-
-
 def get_order(n_samples):
     try:
         with open(str(n_samples) + '.txt') as fp:
@@ -38,8 +32,8 @@ def hinge_loss_single(feature_vector, label, theta, theta_0):
         the hinge loss, as a float, associated with the given data point and
         parameters.
     """
-    # Your code here
-    # Calculate prediction = θ·x + θ₀
+    
+    # Prediction calculation = θ·x + θ₀
     prediction = np.dot(theta, feature_vector) + theta_0
     
     # Hinge loss = max(0, 1 - y(θ·x + θ₀))
@@ -64,11 +58,10 @@ def hinge_loss_full(feature_matrix, labels, theta, theta_0):
         parameters.  This number should be the average hinge loss across all of
     """
 
-    # Your code here
-    # Get number of samples
+    # Number of samples
     n = len(labels)
     
-    # Calculate total loss across all samples
+    #  Total loss calculation across all samples
     total_loss = 0
     for i in range(n):
         total_loss += hinge_loss_single(feature_matrix[i], labels[i], theta, theta_0)
@@ -100,7 +93,6 @@ def perceptron_single_step_update(
         the updated feature-coefficient parameter `theta` as a numpy array
         the updated offset parameter `theta_0` as a floating point number
     """
-    # Your code here
     # Check if prediction is incorrect
     if label * (np.dot(current_theta, feature_vector) + current_theta_0) <= 0:
         # Update parameters
@@ -133,7 +125,6 @@ def perceptron(feature_matrix, labels, T):
         the offset parameter `theta_0` as a floating point number
             (found also after T iterations through the feature matrix).
     """
-    # Your code here
     nsamples, nfeatures = feature_matrix.shape
     theta = np.zeros(nfeatures)
     theta_0 = 0
@@ -141,7 +132,6 @@ def perceptron(feature_matrix, labels, T):
         for i in get_order(nsamples):
             theta, theta_0 = perceptron_single_step_update(
                 feature_matrix[i], labels[i], theta, theta_0)
-    # Your code here
     return theta, theta_0
 
 
@@ -172,12 +162,10 @@ def average_perceptron(feature_matrix, labels, T):
         the average offset parameter `theta_0` as a floating point number
             (averaged also over T iterations through the feature matrix).
     """
-    # Your code here
     nsamples, nfeatures = feature_matrix.shape
     theta = np.zeros(nfeatures)
     theta_0 = 0
 
-    # Keep track of sum of all thetas
     sum_theta = np.zeros(nfeatures)
     sum_theta_0 = 0
     
@@ -219,7 +207,6 @@ def pegasos_single_step_update(
         real valued number with the value of theta_0 after the old updated has
         completed.
     """
-    # Your code here
     if label * (np.dot(theta, feature_vector) + theta_0) <= 1:
         # Perform update with both terms
         theta = (1 - eta*L)*theta + eta*label*feature_vector
@@ -260,7 +247,6 @@ def pegasos(feature_matrix, labels, T, L):
         the value of the theta_0, the offset classification parameter, found
         after T iterations through the feature matrix.
     """
-    # Your code here
     nsamples, nfeatures = feature_matrix.shape
     theta = np.zeros(nfeatures)
     theta_0 = 0
@@ -274,21 +260,6 @@ def pegasos(feature_matrix, labels, T, L):
                 feature_matrix[i], labels[i], L, eta, theta, theta_0)
             
     return theta, theta_0
-
-
-
-#==============================================================================
-#===  PART II  ================================================================
-#==============================================================================
-
-
-
-##  #pragma: coderesponse template
-##  def decision_function(feature_vector, theta, theta_0):
-##      return np.dot(theta, feature_vector) + theta_0
-##  def classify_vector(feature_vector, theta, theta_0):
-##      return 2*np.heaviside(decision_function(feature_vector, theta, theta_0), 0)-1
-##  #pragma: coderesponse end
 
 
 
@@ -309,7 +280,6 @@ def classify(feature_matrix, theta, theta_0):
         given theta and theta_0. If a prediction is GREATER THAN zero, it
         should be considered a positive classification.
     """
-    # Your code here
     # For each row in feature matrix, compute θ·x + θ₀
     predictions = np.dot(feature_matrix, theta) + theta_0
     
@@ -350,7 +320,6 @@ def classifier_accuracy(
         trained classifier on the training data and the second element is the
         accuracy of the trained classifier on the validation data.
     """
-    # Your code here
     # Train the classifier
     theta, theta_0 = classifier(train_feature_matrix, train_labels, **kwargs)
     
@@ -375,7 +344,6 @@ def extract_words(text):
         a list of lowercased words in the string, where punctuation and digits
         count as their own words.
     """
-    # Your code here
     # Replace punctuation and digits with spaces around them
     for c in punctuation + digits:
         text = text.replace(c, ' ' + c + ' ')
@@ -396,7 +364,6 @@ def bag_of_words(texts, remove_stopword=False):
         a dictionary that maps each word appearing in `texts` to a unique
         integer `index`.
     """
-    # Your code here
     indices_by_word = {}  # Maps word to unique index
     stopwords = set()
 
@@ -432,7 +399,6 @@ def extract_bow_feature_vectors(reviews, indices_by_word, binarize=True):
         matrix thus has shape (n, m), where n counts reviews and m counts words
         in the dictionary.
     """
-    # Your code here
     feature_matrix = np.zeros([len(reviews), len(indices_by_word)], dtype=np.float64)
     for i, text in enumerate(reviews):
         word_list = extract_words(text)
@@ -440,7 +406,6 @@ def extract_bow_feature_vectors(reviews, indices_by_word, binarize=True):
             if word not in indices_by_word: continue
             feature_matrix[i, indices_by_word[word]] += 1
     if binarize:
-        # Your code here
         feature_matrix = (feature_matrix > 0).astype(float)
     return feature_matrix
 
