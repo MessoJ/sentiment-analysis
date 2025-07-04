@@ -95,19 +95,19 @@ def plot_toy_data(algo_name, features, labels, thetas):
     * thetas - the tuple (theta, theta_0) that is the output of the learning algorithm
     * algorithm - the string name of the learning algorithm used
     """
-    # plot the points with labels represented as colors
+    # plotting the points with labels represented as colors
     plt.subplots()
     colors = ['b' if label == 1 else 'r' for label in labels]
     plt.scatter(features[:, 0], features[:, 1], s=40, c=colors)
     xmin, xmax = plt.axis()[:2]
 
-    # plot the decision boundary
+    # plotting the decision boundary
     theta, theta_0 = thetas
     xs = np.linspace(xmin, xmax)
     ys = -(theta[0]*xs + theta_0) / (theta[1] + 1e-16)
     plt.plot(xs, ys, 'k-')
 
-    # show the plot
+    # showing the plot
     algo_name = ' '.join((word.capitalize() for word in algo_name.split(' ')))
     plt.suptitle('Classified Toy Data ({})'.format(algo_name))
     plt.show()
@@ -122,7 +122,7 @@ def plot_tune_results(algo_name, param_name, param_vals, acc_train, acc_val):
     plt.plot(param_vals, acc_train, '-o')
     plt.plot(param_vals, acc_val, '-o')
 
-    # make the plot presentable
+    # making the plot presentable
     algo_name = ' '.join((word.capitalize() for word in algo_name.split(' ')))
     param_name = param_name.capitalize()
     plt.suptitle('Classification Accuracy vs {} ({})'.format(param_name, algo_name))
